@@ -1,5 +1,3 @@
-﻿using System;
-
 // Interfaz Mensaje
 public interface IMensaje
 {
