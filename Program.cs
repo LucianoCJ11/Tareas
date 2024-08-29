@@ -1,6 +1,6 @@
 ﻿using System;
 
-// Interfaz IMensaje
+// Interfaz Mensaje
 public interface IMensaje
 {
     string ObtenerContenido();
