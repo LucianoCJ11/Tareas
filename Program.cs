@@ -20,7 +20,7 @@ public class Mensaje : IMensaje
     }
 }
 
-// Main
+// Clase Mensaje
 public abstract class DecoradorMensaje : IMensaje
 {
     protected IMensaje _mensaje;
