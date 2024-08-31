@@ -1,101 +1,118 @@
-// Interfaz Mensaje
-public interface IMensaje
+﻿namespace JuegosContruccion
 {
-    string ObtenerContenido();
+
+    interface ICastillo
+    {
+        void Construir();
+    }
+
+    interface ITorre
+    {
+        void Construir();
+    }
+
+    interface IMuralla
+    {
+        void Construir();
+    }
+
+    class Castillo : ICastillo
+    {
+        public void Construir()
+        {
+            Console.WriteLine("Construcción del castillo en proceso.");
+        }
+    }
+
+    class Torre : ITorre
+    {
+        public void Construir()
+        {
+            Console.WriteLine("Construcción de la torre en proceso.");
+        }
+    }
+
+    class Muralla : IMuralla
+    {
+        public void Construir()
+        {
+            Console.WriteLine("Construcción de la muralla en proceso.");
+        }
+    }
+
+    interface IEdificioFactory
+    {
+        ICastillo CrearCastillo();
+        ITorre CrearTorre();
+        IMuralla CrearMuralla();
+    }
+
+    class CastilloFactory : IEdificioFactory
+    {
+        public ICastillo CrearCastillo()
+        {
+            return new Castillo();
+        }
+
+        public ITorre CrearTorre()
+        {
+            return new Torre();
+        }
+
+        public IMuralla CrearMuralla()
+        {
+            return new Muralla();
+        }
+    }
+
+    class TorreFactory : IEdificioFactory
+    {
+        public ICastillo CrearCastillo()
+        {
+            return new Castillo();
+        }
+
+        public ITorre CrearTorre()
+        {
+            return new Torre();
+        }
+
+        public IMuralla CrearMuralla()
+        {
+            return new Muralla();
+        }
+    }
+
+    class MurallaFactory : IEdificioFactory
+    {
+        public ICastillo CrearCastillo()
+        {
+            return new Castillo();
+        }
+
+        public ITorre CrearTorre()
+        {
+            return new Torre();
+        }
+
+        public IMuralla CrearMuralla()
+        {
+            return new Muralla();
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            IEdificioFactory factory = new CastilloFactory();
+            ICastillo castillo = factory.CrearCastillo();
+            ITorre torre = factory.CrearTorre();
+            IMuralla muralla = factory.CrearMuralla();
+
+            castillo.Construir();
+            torre.Construir();
+            muralla.Construir();
+        }
+    }
 }
-
-// Clase Mensaje
-public class Mensaje : IMensaje
-{
-    private string _contenido;
-
-    public Mensaje(string contenido)
-    {
-        _contenido = contenido;
-    }
-
-    public string ObtenerContenido()
-    {
-        return _contenido;
-    }
-}
-
-// Clase Mensaje
-public abstract class DecoradorMensaje : IMensaje
-{
-    protected IMensaje _mensaje;
-
-    public DecoradorMensaje(IMensaje mensaje)
-    {
-        _mensaje = mensaje;
-    }
-
-    public abstract string ObtenerContenido();
-}
-
-// Mensaje Encriptado
-public class EncriptarMensaje : DecoradorMensaje
-{
-    public EncriptarMensaje(IMensaje mensaje) : base(mensaje)
-    {
-    }
-
-    public override string ObtenerContenido()
-    {
-        // Encriptacion de mensaje ejp
-        return $"[Encriptado]{_mensaje.ObtenerContenido()}";
-    }
-}
-
-// Mensaje Comprimido
-public class ComprimirMensaje : DecoradorMensaje
-{
-    public ComprimirMensaje(IMensaje mensaje) : base(mensaje)
-    {
-    }
-
-    public override string ObtenerContenido()
-    {
-        // Imprimir mensaje comprimido
-        return $"[Comprimido]{_mensaje.ObtenerContenido()}";
-    }
-}
-
-// Firmado del mensaje 
-public class FirmarMensaje : DecoradorMensaje
-{
-    public FirmarMensaje(IMensaje mensaje) : base(mensaje)
-    {
-    }
-
-    public override string ObtenerContenido()
-    {
-        // Imprimir firma
-        return $"{_mensaje.ObtenerContenido()} [Contrato Firmado]";
-    }
-}
-
-// Implimentacion
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        // Mensaje en pantalla
-        IMensaje mensaje = new Mensaje("SIUUUU");
-
-        // Mensaje
-        IMensaje mensajeEncriptado = new EncriptarMensaje(mensaje);
-        Console.WriteLine(mensajeEncriptado.ObtenerContenido());
-
-        // Mensaje
-        IMensaje mensajeComprimido = new ComprimirMensaje(mensajeEncriptado);
-        Console.WriteLine(mensajeComprimido.ObtenerContenido());
-
-        // Firma del contrato
-        IMensaje mensajeFirmado = new FirmarMensaje(mensajeComprimido);
-        Console.WriteLine(mensajeFirmado.ObtenerContenido());
-
- 
-    }
-}
- 
